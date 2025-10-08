@@ -1,0 +1,138 @@
+[
+    {
+        "EVM_event": {
+            "specversion": "1.0",
+            "source": "chain-adapter-eth",
+            "datacontenttype": "application/json",
+            "eventType": "crypto",
+            "traceID": "01G2VVPZXK8J9MQB8TWM11Z5GQ",
+            "status": "completed",
+            "transactionType": "withdrawal",
+            "from": "0x6e685a45db4d97ba160fa067cb81b40dfed47245",
+            "to": "0x7aab1234cd56789ef00123456789abcde1234567",
+            "accountID": "237a0364-38f9-11ef-86b2-578335f3facf",
+            "amountDecimal": "2.5",
+            "symbol": "ETH",
+            "transactionTime": "2022-04-21T21:35:59.999Z",
+            "createdAt": "2022-04-21T21:35:59.999Z",
+            "updatedAt": "2022-04-21T21:35:59.999Z",
+            "cryptoSpecificInfo": {
+                "blockchaintype": "evm",
+                "chainID": "1",
+                "block": 27537537,
+                "blockTimestamp": "2022-05-17T22:00:00.000Z",
+                "fromAddress": "0x6e685a45db4d97ba160fa067cb81b40dfed47245",
+                "toAddress": "0x7aab1234cd56789ef00123456789abcde1234567",
+                "amountInfo": {
+                    "ticker": "ETH",
+                    "valueAtomic": "2500000000000000000",
+                    "valueDecimal": "2.5",
+                    "decimals": 18,
+                    "contractAddress": "",
+                    "standard": "NATIVE"
+                },
+                "txHash": "0x7c6bd55ce2986c33a35a061660ae5b8a41262df0129c1e36c32da2a06289fc0c",
+                "transactionType": "withdrawal"
+            }
+        }
+    },
+    {
+        "BTC_event": {
+            "specversion": "1.0",
+            "source": "chain-adapter-btc",
+            "datacontenttype": "application/json",
+            "eventType": "crypto",
+            "traceID": "01G2WW8JXPB7YQF4W8E3FF9YTA",
+            "status": "completed",
+            "transactionType": "deposit",
+            "from": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+            "to": "1BoatSLRHtKNngkdXEeobR76b53LETtpyT",
+            "accountID": "237a0364-38f9-11ef-86b2-578335f3facf",
+            "amountDecimal": "0.12345678",
+            "symbol": "BTC",
+            "transactionTime": "2025-10-01T15:30:22.000Z",
+            "createdAt": "2025-10-01T15:30:22.000Z",
+            "updatedAt": "2025-10-01T15:30:22.000Z",
+            "cryptoSpecificInfo": {
+                "blockchaintype": "bitcoin",
+                "chainID": "0",
+                "block": 781234,
+                "blockTimestamp": "2025-10-01T15:00:00.000Z",
+                "fromAddress": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
+                "toAddress": "1BoatSLRHtKNngkdXEeobR76b53LETtpyT",
+                "amountInfo": {
+                    "ticker": "BTC",
+                    "valueAtomic": "12345678",
+                    "valueDecimal": "0.12345678",
+                    "decimals": 8,
+                    "contractAddress": "",
+                    "standard": "NATIVE"
+                },
+                "txHash": "e2a1d9b779a1dd4a3eb8f2bedaa9b31cbe9a765ee0f5b0a5264f2e7771c2f4ab",
+                "transactionType": "deposit"
+            }
+        }
+    },
+    {
+        "ERC-20": {
+            "specversion": "1.0",
+            "source": "chain-adapter-eth",
+            "datacontenttype": "application/json",
+            "eventType": "crypto",
+            "traceID": "01G2VVPZXK8J9MQB8TWM11Z5GQ",
+            "status": "completed",
+            "transactionType": "withdrawal",
+            "from": "0x6e685a45db4d97ba160fa067cb81b40dfed47245",
+            "to": "0x7aab1234cd56789ef00123456789abcde1234567",
+            "accountID": "237a0364-38f9-11ef-86b2-578335f3facf",
+            "amountDecimal": "150.75",
+            "symbol": "USDT",
+            "transactionTime": "2022-04-21T21:35:59.999Z",
+            "createdAt": "2022-04-21T21:35:59.999Z",
+            "updatedAt": "2022-04-21T21:35:59.999Z",
+            "cryptoSpecificInfo": {
+                "blockchaintype": "evm",
+                "chainID": "1",
+                "block": 27537537,
+                "blockTimestamp": "2022-05-17T22:00:00.000Z",
+                "fromAddress": "0x6e685a45db4d97ba160fa067cb81b40dfed47245",
+                "toAddress": "0x7aab1234cd56789ef00123456789abcde1234567",
+                "amountInfo": {
+                    "ticker": "USDT",
+                    "valueAtomic": "150750000",
+                    "valueDecimal": "150.75",
+                    "decimals": 6,
+                    "contractAddress": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+                    "standard": "ERC-20"
+                },
+                "txHash": "0xa1b2c3d4e5f67890123456789abcdef0123456789abcdef0123456789abcdef",
+                "transactionType": "withdrawal"
+            }
+        }
+    },
+    {
+        "FIAT": {
+            "specversion": "1.0",
+            "source": "fiat-payment-gateway",
+            "datacontenttype": "application/json",
+            "eventType": "fiat",
+            "traceID": "01G3ABCDXYZ9876543210EFGHJK",
+            "status": "completed",
+            "transactionType": "deposit",
+            "from": "bank-account-123456789",
+            "to": "internal-account-987654321",
+            "accountID": "237a0364-38f9-11ef-86b2-578335f3facf",
+            "amountDecimal": "1000.00",
+            "symbol": "USD",
+            "transactionTime": "2025-10-01T10:15:30.000Z",
+            "createdAt": "2025-10-01T10:15:30.000Z",
+            "updatedAt": "2025-10-01T10:15:30.000Z",
+            "fiatSpecificInfo": {
+                "paymentProvider": "stripe",
+                "referenceNumber": "STR123456789",
+                "currencyCode": "USD",
+                "paymentMethod": "ACH"
+            }
+        }
+    }
+]
