@@ -1,0 +1,82 @@
+openapi: 3.0.3
+info:
+  title: Builder Service API
+  version: 1.0.0
+servers:
+  - url: https://tx-builder-eth:8080
+security:
+  - BearerAuth: []
+
+paths:
+  /buildTx:
+    post:
+      summary: Build an unsigned transaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - fromAddress
+                - toAddress
+                - chainId
+                - txType
+                - amount
+                - gasLimit
+                - gasPrice
+                - nonce
+              properties:
+                fromAddress: 
+                  type: string 
+                  description: Hex address string of the sender
+                chainId:
+                  type: string
+                  description: Blockchain chain identifier
+                txType:
+                  type: string
+                  enum: [native, erc20]
+                  description: Type of transaction, either "native" or "erc20"
+                toAddress:
+                  type: string
+                  description: Hex address string of the recipient
+                amount:
+                  type: string
+                  description: Amount to send in wei (lowest unit)
+                gasLimit:
+                  type: integer
+                  format: uint64
+                  description: Gas limit for the transaction
+                gasPrice:
+                  type: string
+                  description: Gas price in wei
+                nonce:
+                  type: integer
+                  format: uint64
+                  description: Nonce for the transaction
+                contractAddress:
+                  type: string
+                  description: Contract address, required if txType is "erc20"
+      responses:
+        '200':
+          description: Successfully built unsigned transaction
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  unsignedTx:
+                    type: string
+                    description: Marshalled unsigned transaction string
+        '400':
+          description: Invalid input parameters
+        '500':
+          description: Internal server error
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT bearer token in header - "Authorization: Bearer TOKEN"'

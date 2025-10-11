@@ -1,0 +1,108 @@
+openapi: 3.0.3
+info:
+  title: Address Service API
+  version: 1.0.0
+servers:
+  - url: https://wallet:8080
+security:
+  - BearerAuth: []
+
+paths:
+  /address:
+    post:
+      summary: Get address and public key for an account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - accountId
+                - chainId
+              properties:
+                accountId:
+                  type: string
+                  description: The unique account identifier
+                chainId:
+                  type: string
+                  description: The blockchain chain identifier
+      responses:
+        '200':
+          description: Successfully retrieved address and public key
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  address:
+                    type: string
+                    description: The blockchain address for the account
+                  publicKey:
+                    type: string
+                    description: The public key of the account
+        '400':
+          description: Invalid input parameters
+        '500':
+          description: Internal server error
+
+  /signTx:
+    post:
+      summary: Sign transaction data for an account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - accountId
+                - chainId
+                - unsignedTxData
+              properties:
+                accountId:
+                  type: string
+                  description: Account identifier
+                chainId:
+                  type: string
+                  description: Blockchain chain identifier
+                unsignedTxData:
+                  oneOf:
+                    - $ref: '#/components/schemas/UnsignedTxDataEth'
+                    - $ref: '#/components/schemas/UnsignedTxDataBTC'
+                  description: Unsigned transaction data object
+      responses:
+        '200':
+          description: Successfully signed the transaction
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signedTx:
+                    type: string
+                    description: The signed transaction data
+        '400':
+          description: Invalid input parameters
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    UnsignedTxDataEth:
+      type: object
+      required:
+        - unsignedTx
+      properties:
+        unsignedTx:
+          type: string
+          description: Unsigned Ethereum transaction data as string
+
+    UnsignedTxDataBTC:
+      type: object
+      required:
+        - psbt
+      properties:
+        psbt:
+          type: string
+          description: Partially signed Bitcoin transaction (PSBT) string
