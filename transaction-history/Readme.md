@@ -18,3 +18,4 @@
 
 8. Run binary: `make run-local`
 
+API-spec: event-spec/1.0.0/rest-api
