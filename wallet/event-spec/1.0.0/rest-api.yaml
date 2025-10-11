@@ -106,3 +106,10 @@ components:
         psbt:
           type: string
           description: Partially signed Bitcoin transaction (PSBT) string
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT bearer token in header - "Authorization: Bearer TOKEN"'

@@ -1,6 +1,7 @@
 package service
 
-// this is just a sample code for easy generation of eth tx in a way accepted by the signTx endpoint
+// this is just a sample code for easy generation of eth tx in a way accepted by the signTx endpoint - this should be on a separate service tx-builder-eth. tx-builder should route eth related txs to tx-builder-eth to the same endpoint
+
 import (
 	"context"
 	"fmt"
@@ -14,10 +15,9 @@ import (
 )
 
 type BuildTxEthParams struct {
-	AccountId       string `json:"accountId" validate:"required"`
 	ChainId         string `json:"chainId" validate:"required"`
 	TxType          string `json:"txType" validate:"required"`    // "native" or "erc20"
-	Recipient       string `json:"recipient" validate:"required"` // hex address string
+	ToAddress       string `json:"toAddress" validate:"required"` // hex address string
 	Amount          string `json:"amount" validate:"required"`    // string amount in wei (lowest units)
 	GasLimit        uint64 `json:"gasLimit" validate:"required"`
 	GasPrice        string `json:"gasPrice" validate:"required"` // gas price in wei
@@ -41,7 +41,7 @@ func (s *Service) BuildTxEth(ctx context.Context, params *BuildTxEthParams) (*Bu
 	log.With("params", params)
 
 	// Parse common fields
-	recipient := eth_common.HexToAddress(params.Recipient)
+	recipient := eth_common.HexToAddress(params.ToAddress)
 	gasLimit := params.GasLimit
 	gasPrice, ok := new(big.Int).SetString(params.GasPrice, 10)
 	if !ok {
