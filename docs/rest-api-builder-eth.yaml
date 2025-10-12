@@ -18,16 +18,13 @@ paths:
             schema:
               type: object
               required:
-                - fromAddress
-                - toAddress
+                - from
+                - to
                 - chainId
                 - txType
                 - amount
-                - gasLimit
-                - gasPrice
-                - nonce
               properties:
-                fromAddress: 
+                from: 
                   type: string 
                   description: Hex address string of the sender
                 chainId:
@@ -37,7 +34,7 @@ paths:
                   type: string
                   enum: [native, erc20]
                   description: Type of transaction, either "native" or "erc20"
-                toAddress:
+                to:
                   type: string
                   description: Hex address string of the recipient
                 amount:
@@ -46,14 +43,14 @@ paths:
                 gasLimit:
                   type: integer
                   format: uint64
-                  description: Gas limit for the transaction
+                  description: Gas limit for the transaction, if not provided fetch from node
                 gasPrice:
                   type: string
-                  description: Gas price in wei
+                  description: Gas price in wei, if not provided fetch from node
                 nonce:
                   type: integer
                   format: uint64
-                  description: Nonce for the transaction
+                  description: Nonce for the transaction, if not provided fetch from node 
                 contractAddress:
                   type: string
                   description: Contract address, required if txType is "erc20"
