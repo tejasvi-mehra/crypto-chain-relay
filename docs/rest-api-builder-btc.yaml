@@ -17,21 +17,18 @@ paths:
             schema:
               type: object
               required:
-                - fromAddress
-                - toAddress
                 - chainId
-                - recipient
+                - from
+                - to
                 - amount
-                - feeRate
-                - nonce
               properties:
                 chainId:
                   type: string
                   description: Blockchain chain identifier (e.g., bitcoin mainnet/signet)
-                fromAddress:
+                from:
                   type: string
                   description: Bitcoin address of the sender
-                toAddress:
+                to:
                   type: string
                   description: Bitcoin address of the recipient
                 amount:
@@ -39,14 +36,14 @@ paths:
                   description: Amount to send in satoshis (lowest BTC unit)
                 feeRate:
                   type: string
-                  description: Fee rate in satoshis per virtual byte
+                  description: Fee rate in satoshis per virtual byte, if not provided fetch from node
                 nonce:
                   type: integer
                   format: uint64
-                  description: Nonce or sequence number for the transaction (if applicable)
+                  description: Nonce or sequence number for the transaction, if not provided fetch from node
                 changeAddress:
                   type: string
-                  description: Optional change address for the transaction
+                  description: Optional change address for the transaction, if not provided use the from
       responses:
         '200':
           description: Successfully built unsigned Bitcoin transaction PSBT
