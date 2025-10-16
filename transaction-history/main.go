@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"transaction-history/internal/framework/db"
+	swagger "transaction-history/internal/event/generated/1.0.0/transaction-events/go"
 	"transaction-history/internal/framework/logger"
 	"transaction-history/internal/framework/server"
 	"transaction-history/internal/service/transactions"
@@ -26,15 +26,17 @@ func main() {
 		log.Panicw("failed to load config from env", "err", err)
 	}
 	// setup db
-	dbConfig, err := db.NewConfig()
-	if err != nil {
-		log.Panicw("failed to get db config", "err", err)
-	}
-	db, err := db.NewDb(dbConfig)
-	if err != nil {
-		log.Panicw("failed to setup db", "err", err)
-	}
-	repo := repo.NewRepo(db)
+	// dbConfig, err := db.NewConfig()
+	// if err != nil {
+	// 	log.Panicw("failed to get db config", "err", err)
+	// }
+	// db, err := db.NewDb(dbConfig)
+	// if err != nil {
+	// 	log.Panicw("failed to setup db", "err", err)
+	// }
+	// repo := repo.NewRepo(db)
+	// use mock instead
+	repo := &repo.MockRepo{}
 	// setup service
 	service := transactions.NewTxService(repo)
 	e, err := ServiceEcho(service)
@@ -90,6 +92,20 @@ func ServiceEcho(service *transactions.TxService) (*echo.Echo, error) {
 		}
 		c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		return c.JSON(http.StatusOK, res)
+	})
+	e.POST("/newTxs", func(c echo.Context) error {
+		ctx := context.Background()
+		var params []swagger.TxEventData
+		if err := c.Bind(&params); err != nil {
+			log.Errorw("cannot bind params", "err", err)
+			return fmt.Errorf("failed to get params: %v", err)
+		}
+		err := service.SaveTxs(ctx, params)
+		if err != nil {
+			return err
+		}
+		c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+		return c.JSON(http.StatusOK, map[string]bool{"saved": true})
 	})
 	e.HTTPErrorHandler = ErrorHandler(e.DefaultHTTPErrorHandler)
 

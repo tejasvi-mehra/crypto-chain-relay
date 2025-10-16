@@ -29,6 +29,7 @@ func NewServiceConfig() (*ServiceConfig, error) {
 type Repo interface {
 	GetAccountTransactions(ctx context.Context, accountID string, limit, offset int) ([]*db.Txs, error)
 	GetAccountBalances(ctx context.Context, accountID string) ([]*repo.AccountBalances, error)
+	SaveTx(ctx context.Context, tx []*db.Txs) error
 }
 
 type TxService struct {
