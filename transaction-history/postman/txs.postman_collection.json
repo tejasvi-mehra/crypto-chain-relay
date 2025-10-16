@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"accountID\":\"237a0364-38f9-11ef-86b2-578335f3facf\",\n    \"limit\":10,\n    \"offset\":1\n}",
+					"raw": "{\n    \"accountID\":\"ce1268c5-9d05-46b4-8e69-59221d4e26f3\",\n    \"limit\":10,\n    \"offset\":1\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -35,13 +35,41 @@
 			"response": []
 		},
 		{
+			"name": "newTx",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\"specversion\":\"1.0\",\"source\":\"eth-adapter\",\"datacontenttype\":\"application/json\",\"eventType\":\"crypto\",\"traceID\":\"01K7914GH0NZZ58YM65GAVAGGC\",\"status\":\"detected\",\"transactionType\":\"withdrawal\",\"from\":\"0x80B724BA8005E91a3A2bb9B28719F63ea886dd5c\",\"to\":\"0xac65a40b5a798e84B550Aebc611c2bE922541A0B\",\"accountID\":\"ce1268c5-9d05-46b4-8e69-59221d4e26f5\",\"amountDecimal\":\"0.001\",\"symbol\":\"LINK\",\"transactionTime\":\"2025-10-11T15:00:36+08:00\",\"createdAt\":\"2025-10-16 08:17:39.191661 +0000 UTC\",\"updatedAt\":\"\",\"cryptoSpecificInfo\":{\"blockchaintype\":\"evm\",\"chainID\":\"11155111\",\"block\":9387584,\"blockTimestamp\":\"2025-10-11T15:00:36+08:00\",\"fromAddress\":\"0x80B724BA8005E91a3A2bb9B28719F63ea886dd5c\",\"toAddress\":\"0xac65a40b5a798e84B550Aebc611c2bE922541A0B\",\"amountInfo\":{\"ticker\":\"LINK\",\"valueAtomic\":\"0\",\"valueDecimal\":\"0.001\",\"decimals\":18,\"contractAddress\":\"0x779877A7B0D9E8603169DdbD7836e478b4624789\",\"standard\":\"native\"},\"txHash\":\"0xb3b43419412387d345d083aa5e753ceb4074f0e37284328133a6b9a6c6227201\"}},{\"specversion\":\"1.0\",\"source\":\"eth-adapter\",\"datacontenttype\":\"application/json\",\"eventType\":\"crypto\",\"traceID\":\"01K7914GH0KSGPA997H2NBT31T\",\"status\":\"detected\",\"transactionType\":\"network_fee\",\"from\":\"0x80B724BA8005E91a3A2bb9B28719F63ea886dd5c\",\"to\":\"0xac65a40b5a798e84B550Aebc611c2bE922541A0B\",\"accountID\":\"ce1268c5-9d05-46b4-8e69-59221d4e26f5\",\"amountDecimal\":\"0.00069116\",\"symbol\":\"ETH\",\"transactionTime\":\"2025-10-11T15:00:36+08:00\",\"createdAt\":\"2025-10-16 08:17:39.191719 +0000 UTC\",\"updatedAt\":\"\",\"cryptoSpecificInfo\":{\"blockchaintype\":\"evm\",\"chainID\":\"11155111\",\"block\":9387584,\"blockTimestamp\":\"2025-10-11T15:00:36+08:00\",\"fromAddress\":\"0x80B724BA8005E91a3A2bb9B28719F63ea886dd5c\",\"toAddress\":\"0xac65a40b5a798e84B550Aebc611c2bE922541A0B\",\"amountInfo\":{\"ticker\":\"ETH\",\"valueAtomic\":\"691160000000000\",\"valueDecimal\":\"0.00069116\",\"decimals\":18,\"standard\":\"native\"},\"txHash\":\"0xb3b43419412387d345d083aa5e753ceb4074f0e37284328133a6b9a6c6227201\"}},{\"specversion\":\"1.0\",\"source\":\"eth-adapter\",\"datacontenttype\":\"application/json\",\"eventType\":\"crypto\",\"traceID\":\"01K7914GH07Q9MV3CFBMABSYF4\",\"status\":\"detected\",\"transactionType\":\"deposit\",\"from\":\"0x80B724BA8005E91a3A2bb9B28719F63ea886dd5c\",\"to\":\"0xac65a40b5a798e84B550Aebc611c2bE922541A0B\",\"accountID\":\"ce1268c5-9d05-46b4-8e69-59221d4e26f3\",\"amountDecimal\":\"0.001\",\"symbol\":\"LINK\",\"transactionTime\":\"2025-10-11T15:00:36+08:00\",\"createdAt\":\"2025-10-16 08:17:39.191764 +0000 UTC\",\"updatedAt\":\"\",\"cryptoSpecificInfo\":{\"blockchaintype\":\"evm\",\"chainID\":\"11155111\",\"block\":9387584,\"blockTimestamp\":\"2025-10-11T15:00:36+08:00\",\"fromAddress\":\"0x80B724BA8005E91a3A2bb9B28719F63ea886dd5c\",\"toAddress\":\"0xac65a40b5a798e84B550Aebc611c2bE922541A0B\",\"amountInfo\":{\"ticker\":\"LINK\",\"valueAtomic\":\"0\",\"valueDecimal\":\"0.001\",\"decimals\":18,\"contractAddress\":\"0x779877A7B0D9E8603169DdbD7836e478b4624789\",\"standard\":\"native\"},\"txHash\":\"0xb3b43419412387d345d083aa5e753ceb4074f0e37284328133a6b9a6c6227201\"}}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/newTxs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"newTxs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "balances",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"accountID\":\"237a0364-38f9-11ef-86b2-578335f3facf\"\n}",
+					"raw": "{\n    \"accountID\":\"ce1268c5-9d05-46b4-8e69-59221d4e26f5\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
