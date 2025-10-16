@@ -1,0 +1,61 @@
+openapi: 3.0.3
+info:
+  title: Builder Service API
+  version: 1.0.0
+servers:
+  - url: https://tx-builder-btc:8080
+security:
+  - BearerAuth: []
+paths:
+  /buildTx:
+    post:
+      summary: Build an unsigned Bitcoin transaction (PSBT)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - chainId
+                - from
+                - to
+                - amount
+              properties:
+                chainId:
+                  type: string
+                  description: Blockchain chain identifier (e.g., bitcoin mainnet/signet)
+                from:
+                  type: string
+                  description: Bitcoin address of the sender
+                to:
+                  type: string
+                  description: Bitcoin address of the recipient
+                amount:
+                  type: string
+                  description: Amount to send in satoshis (lowest BTC unit)
+                feeRate:
+                  type: string
+                  description: Fee rate in satoshis per virtual byte, if not provided fetch from node
+                nonce:
+                  type: integer
+                  format: uint64
+                  description: Nonce or sequence number for the transaction, if not provided fetch from node
+                changeAddress:
+                  type: string
+                  description: Optional change address for the transaction, if not provided use the from
+      responses:
+        '200':
+          description: Successfully built unsigned Bitcoin transaction PSBT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  psbt:
+                    type: string
+                    description: Base64 encoded Partially Signed Bitcoin Transaction
+        '400':
+          description: Invalid input parameters
+        '500':
+          description: Internal server error

@@ -1,0 +1,148 @@
+openapi: 3.0.3
+info:
+  title: Unified Withdrawal Service API
+  version: 1.0.0
+  description: API to perform withdrawals for ETH, BTC, or FIAT
+paths:
+  /withdraw:
+    post:
+      summary: Withdraw ETH, BTC, or FIAT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - withdrawalType
+                - accountId
+                - amount
+                - details
+              properties:
+                withdrawalType:
+                  type: string
+                  description: Type of withdrawal
+                  enum: [eth, btc, fiat]
+                accountId:
+                  type: string
+                  description: Identifier of the user/account making the withdrawal
+                amount:
+                  type: string
+                  description: Amount to withdraw in the appropriate smallest unit (wei, sat, cents)
+                details:
+                  oneOf:
+                    - $ref: '#/components/schemas/ETHWithdrawalDetails'
+                    - $ref: '#/components/schemas/BTCWithdrawalDetails'
+                    - $ref: '#/components/schemas/FIATWithdrawalDetails'
+                  description: Specific withdrawal details depending on withdrawalType
+      responses:
+        '200':
+          description: Withdrawal request accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactionId:
+                    type: string
+                    description: Identifier of the withdrawal transaction or request
+                  status:
+                    type: string
+                    description: Status of the withdrawal request
+        '400':
+          description: Invalid input parameters
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    ETHWithdrawalDetails:
+      type: object
+      required:
+        - from
+        - to
+        - chainId
+        - txType
+        - amount
+      properties:
+        from: 
+          type: string 
+          description: Hex address string of the sender
+        chainId:
+          type: string
+          description: Blockchain chain identifier
+        txType:
+          type: string
+          enum: [native, erc20]
+          description: Type of transaction, either "native" or "erc20"
+        to:
+          type: string
+          description: Hex address string of the recipient
+        amount:
+          type: string
+          description: Amount to send in wei (lowest unit)
+        gasLimit:
+          type: integer
+          format: uint64
+          description: Gas limit for the transaction, if not provided fetch from node
+        gasPrice:
+          type: string
+          description: Gas price in wei, if not provided fetch from node
+        nonce:
+          type: integer
+          format: uint64
+          description: Nonce for the transaction, if not provided fetch from node 
+        contractAddress:
+          type: string
+          description: Contract address, required if txType is "erc20"
+
+    BTCWithdrawalDetails:
+      type: object
+      required:
+        - chainId
+        - from
+        - to
+        - amount
+      properties:
+        chainId:
+          type: string
+          description: Blockchain chain identifier (e.g., bitcoin mainnet/signet)
+        from:
+          type: string
+          description: Bitcoin address of the sender
+        to:
+          type: string
+          description: Bitcoin address of the recipient
+        amount:
+          type: string
+          description: Amount to send in satoshis (lowest BTC unit)
+        feeRate:
+          type: string
+          description: Fee rate in satoshis per virtual byte, if not provided fetch from node
+        nonce:
+          type: integer
+          format: uint64
+          description: Nonce or sequence number for the transaction, if not provided fetch from node
+        changeAddress:
+          type: string
+          description: Optional change address for the transaction, if not provided use the from
+
+    FIATWithdrawalDetails:
+      type: object
+      required:
+        - bankAccountNumber
+        - bankName
+        - currency
+      properties:
+        bankAccountNumber:
+          type: string
+          description: Bank account number for withdrawal
+        bankName:
+          type: string
+          description: Bank name
+        currency:
+          type: string
+          description: Currency code (e.g., USD, EUR)
+        reference:
+          type: string
+          description: Optional payment reference or note
