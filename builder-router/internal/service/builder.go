@@ -117,7 +117,7 @@ func (s *Service) ValidateWithdrawal(ctx context.Context, e echo.Context, params
 	}
 	// found balance for symbol
 	if balance <= amount {
-		return fmt.Errorf("cannot init withdrawal, not enough balance: %s, available: %f, withdrawalAmount: %s", params.Symbol, balance, amount)
+		return fmt.Errorf("cannot init withdrawal, not enough balance: %s, available: %f, withdrawalAmount: %f", params.Symbol, balance, amount)
 	} else {
 		// has balance continue
 		return nil
